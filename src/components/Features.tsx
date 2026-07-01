@@ -1,3 +1,5 @@
+'use client';
+
 export default function Features() {
   const features = [
     {
@@ -16,19 +18,19 @@ export default function Features() {
       description: 'Proxy servers across Canada, USA, and Australia for worldwide access.',
     },
     {
-      icon: '📊',
-      title: 'Advanced Analytics',
-      description: 'Real-time dashboards to monitor bandwidth, connections, and performance.',
+      icon: '💳',
+      title: 'Easy M-Pesa Payment',
+      description: 'Simple and secure M-Pesa integration for Kenyan customers.',
     },
     {
       icon: '🎯',
-      title: 'Dedicated Support',
-      description: '24/7 customer support team ready to help with any issues.',
+      title: 'Instant Activation',
+      description: 'Get your proxy credentials immediately after payment verification.',
     },
     {
-      icon: '💳',
-      title: 'Flexible Billing',
-      description: 'Pay-as-you-go pricing with no long-term contracts required.',
+      icon: '🤝',
+      title: 'Dedicated Support',
+      description: '24/7 customer support team on Telegram and email ready to help.',
     },
   ];
 
