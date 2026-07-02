@@ -2,19 +2,39 @@
 
 TrueProxies LLC is a modern, production-ready platform designed to sell premium proxy services. It combines a sleek customer-facing website with a secure backend system, offering both individual users and businesses reliable access to proxies in Canada, USA, and Australia.
 
-## Project Structure
+## 🚀 Quick Start
+
+### Using Docker
+```bash
+docker-compose up -d
+```
+
+### Manual Setup
+```bash
+# Backend
+cd backend && npm install && npm run dev
+
+# Frontend (new terminal)
+cd frontend && npm install && npm run dev
+```
+
+**Access:**
+- Frontend: http://localhost:3000
+- API: http://localhost:5000/health
+
+## 📋 Project Structure
 
 ```
-├── backend/              # Node.js/Express API server
+├── backend/              # Node.js/Express API
 │   ├── src/
-│   │   ├── config/       # Configuration files (database)
-│   │   ├── models/       # MongoDB schemas
+│   │   ├── config/       # Database configuration
+│   │   ├── models/       # MongoDB schemas (User, Proxy, Order)
 │   │   ├── routes/       # API endpoints
 │   │   └── index.js      # Entry point
 │   ├── package.json
 │   └── Dockerfile
 ├── frontend/             # Next.js React app
-│   ├── pages/            # Next.js pages
+│   ├── pages/            # Next.js pages (/, /proxies, /support)
 │   ├── styles/           # Tailwind CSS
 │   ├── package.json
 │   └── Dockerfile
@@ -22,90 +42,128 @@ TrueProxies LLC is a modern, production-ready platform designed to sell premium 
 └── README.md
 ```
 
-## Tech Stack
+## 🛠 Tech Stack
 
 ### Backend
-- **Runtime**: Node.js with Express.js
+- **Runtime**: Node.js 18+
+- **Framework**: Express.js
 - **Database**: MongoDB
-- **Authentication**: JWT (jsonwebtoken)
+- **Authentication**: JWT
 - **Security**: Helmet, CORS, bcryptjs
-- **Payment**: Stripe integration ready
+- **Payment Reference**: `0117358581`
 
 ### Frontend
-- **Framework**: Next.js 13 (React 18)
+- **Framework**: Next.js 13
+- **UI Library**: React 18
 - **Styling**: Tailwind CSS
-- **State Management**: Zustand
 - **HTTP Client**: Axios
-- **Payment**: Stripe JS
+- **State**: Zustand
 
-## Features
+## ✨ Key Features
 
-- ✅ User authentication (register/login)
-- ✅ Proxy listing and filtering (by country)
-- ✅ Responsive design
-- ✅ MongoDB integration
-- ✅ RESTful API
-- ✅ Docker support
-- 🔄 Payment processing (Stripe) - In progress
-- 🔄 Admin dashboard - In progress
-- 🔄 User dashboard - In progress
+✅ **User Management**
+- Register/Login with JWT authentication
+- Secure password hashing (bcryptjs)
+- User profiles
 
-## Getting Started
+✅ **Proxy Management**
+- Browse proxies by country (USA, Canada, Australia)
+- Filter by protocol (HTTP, HTTPS, SOCKS5)
+- Real-time availability
+- Expiry date tracking
+- Automatic deactivation of expired proxies
 
-### Prerequisites
-- Node.js 18+
-- MongoDB (or use Docker)
-- Docker & Docker Compose (optional)
+✅ **Payment System**
+- Payment reference: `0117358581`
+- Order management
+- Payment status tracking
+- Transaction records
 
-### Option 1: Using Docker
+✅ **Proxy Lifecycle**
+- Load new proxies (batch or single)
+- Track expiry dates
+- Renew expiring proxies
+- Remove expired proxies
 
-```bash
-docker-compose up -d
-```
+✅ **Customer Support**
+- **24/7 Telegram Support**: https://t.me/giantDigitalcenter
+- Support page with FAQs
+- Multiple contact methods
 
-Access:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
-- MongoDB: localhost:27017
+✅ **Responsive Design**
+- Mobile-first approach
+- Works on all devices
+- Modern UI with Tailwind CSS
 
-### Option 2: Manual Setup
-
-#### Backend
-
-```bash
-cd backend
-cp .env.example .env
-npm install
-npm run dev
-```
-
-#### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Then open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## API Endpoints
+## 📡 API Endpoints
 
 ### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
+```
+POST   /api/auth/register      # Register new user
+POST   /api/auth/login         # Login user
+```
 
 ### Proxies
-- `GET /api/proxies` - Get all proxies (supports filtering)
-- `GET /api/proxies/:id` - Get specific proxy
-
-### Users
-- `GET /api/users/profile` - Get user profile (protected)
+```
+GET    /api/proxies            # Get all active proxies
+GET    /api/proxies/:id        # Get specific proxy
+POST   /api/proxies            # Add new proxy (admin)
+POST   /api/proxies/batch/load # Batch load proxies (admin)
+PATCH  /api/proxies/:id/expiry # Renew proxy expiry (admin)
+DELETE /api/proxies/cleanup/expired # Remove expired proxies (admin)
+```
 
 ### Orders
-- `GET /api/orders` - Get user orders (protected)
+```
+POST   /api/orders             # Create order
+GET    /api/orders/user/:userId # Get user orders
+GET    /api/orders/:id         # Get order details
+PATCH  /api/orders/:id/payment # Update payment status
+```
 
-## Environment Variables
+### Users
+```
+GET    /api/users/profile      # Get user profile
+```
+
+## 💳 Payment Reference
+
+**Payment Reference Number**: `0117358581`
+
+This reference is:
+- Assigned to all orders automatically
+- Used for payment reconciliation
+- Required for payment support
+- Stored in transaction records
+
+## 📞 Customer Support
+
+### Telegram Support
+🔗 **[Join TrueProxies Support](https://t.me/giantDigitalcenter)**
+
+- **Available**: 24/7
+- **Response Time**: ~1 hour
+- **Support For**:
+  - Account issues
+  - Proxy connection problems
+  - Billing inquiries
+  - Technical troubleshooting
+  - Feature requests
+
+### Other Support Methods
+- **Support Portal**: In-app ticket system
+- **Email**: support@trueproxies.com
+
+## 🔐 Security
+
+- Password hashing with bcryptjs
+- JWT token authentication
+- CORS protection
+- Helmet security headers
+- Environment variable protection
+- MongoDB connection security
+
+## 🌍 Environment Variables
 
 ### Backend (.env)
 ```
@@ -113,6 +171,7 @@ PORT=5000
 MONGODB_URI=mongodb://localhost:27017/trueproxies
 JWT_SECRET=your-secret-key
 STRIPE_SECRET_KEY=your-stripe-key
+PAYMENT_REFERENCE=0117358581
 NODE_ENV=development
 ```
 
@@ -121,64 +180,41 @@ NODE_ENV=development
 NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
 
-## Development
+## 📚 Documentation
 
-### Backend Development
-```bash
-cd backend
-npm run dev      # Start with nodemon
-npm test         # Run tests
-```
+- [PAYMENT_INFO.md](./PAYMENT_INFO.md) - Payment and proxy management details
+- [SUPPORT.md](./SUPPORT.md) - Customer support information
 
-### Frontend Development
-```bash
-cd frontend
-npm run dev      # Start dev server
-npm run build    # Build for production
-npm run start    # Start production server
-```
+## 🚢 Deployment
 
-## Testing
-
-```bash
-# Backend
-cd backend && npm test
-
-# Frontend
-cd frontend && npm test
-```
-
-## Deployment
-
-The project is containerized and ready for deployment to:
+The project is fully containerized and ready for deployment to:
 - AWS ECS/EKS
 - Google Cloud Run
 - Azure Container Instances
 - Heroku
 - DigitalOcean App Platform
 
-## Security Notes
+## 📝 Next Steps
 
-- Update JWT_SECRET and STRIPE_SECRET_KEY in production
-- Enable HTTPS in production
-- Set MongoDB authentication credentials
-- Use environment variables for sensitive data
-- Enable CORS restrictions for frontend domain
+1. ✅ Initial project structure
+2. ✅ Payment integration (`0117358581`)
+3. ✅ Proxy expiry management
+4. ✅ Customer support (Telegram)
+5. 🔄 Stripe payment implementation
+6. 🔄 Admin dashboard
+7. 🔄 Email verification
+8. 🔄 Proxy health monitoring
 
-## Next Steps
-
-1. ✅ Set up initial project structure
-2. 🔄 Implement Stripe payment integration
-3. 🔄 Build admin dashboard
-4. 🔄 Add email verification
-5. 🔄 Implement proxy testing service
-6. 🔄 Add user subscription management
-7. 🔄 Set up monitoring and logging
-
-## Support
-
-For issues, questions, or contributions, please reach out to the development team.
-
-## License
+## 📄 License
 
 MIT License - See LICENSE file for details
+
+## 🤝 Support
+
+For questions or support:
+- 💬 [Telegram](https://t.me/giantDigitalcenter)
+- 📧 Email: support@trueproxies.com
+
+---
+
+**Payment Reference**: `0117358581` | **Support**: [Telegram 24/7](https://t.me/giantDigitalcenter)
